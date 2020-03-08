@@ -22,7 +22,7 @@
   box-sizing: border-box;
   text-align: center;
   font-size: 20px;
-  vertical-align: middle;
+  vertical-align: top;
   padding-top: 25.25;
 }
 
@@ -33,6 +33,7 @@
   height: 20px;
   display: inline-block;
   margin-left: 50px;
+  cursor: pointer;
 }
 
 .color_block:hover .drop_down_menu_color {
@@ -78,5 +79,15 @@
 
 #black {
   background:black;
+}
+
+#discharge {
+  background-color: black;
+  color: red;
+  border: none;
+  width: 75px;
+  height: 20px;
+  vertical-align: top;
+  cursor: pointer;
 }
 
