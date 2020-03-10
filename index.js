@@ -1,6 +1,8 @@
 class TicTacToe {
-  constructor (block) {
-    this.TicTacToeContainerHtml = document.getElementById(block);  
+  constructor (block,color) {
+    this.TicTacToeGlobalContainer = document.getElementById('Tic_tac_toe_global_container'); 
+    block.appendChild(this.TicTacToeGlobalContainer)
+    this.TicTacToeContainerHtml = document.getElementById('Tic_tac_toe_container');  
     this.positions = document.getElementsByClassName('position');
     this.colorPositionbutton = document.getElementsByClassName('color_position');
     this.discharge = document.getElementById('discharge');  
@@ -16,13 +18,15 @@ class TicTacToe {
         this.positions[i].innerHTML = '';
       }
     })
-    
-    for (let i = 0; i < this.colorPositionbutton.length; i++) {
-      this.colorPositionbutton[i].addEventListener('click', (e) => {
-        // instance.setColor(event.target.innerHTML)
-        instance.setColor(color)
-      })
-    }
+    // for (let i = 0; i < this.colorPositionbutton.length; i++) {
+    //   this.colorPositionbutton[i].addEventListener('click', (e) => {
+    //     // instance.setColor(event.target.innerHTML)
+    //     instance.setColor(color)
+    //   })
+    // }
+    this.colorBlock.addEventListener('click', () =>  {
+      instance.setColor(color)
+    })
 
     for (let i = 0; i < 9; i++) {
       const el = this.createBlock('position no_active_position');
@@ -37,7 +41,8 @@ class TicTacToe {
   }
 
   click(e) {
-    if(e.target.className === 'position no_active_position' ) {
+    console.log(e)
+    if(e.target.className === 'position no_active_position' && this.position === true) {
       e.target.innerHTML = this.current;
       this.current = this.current === 'X' ? 'O' : this.current === 'O' ? 'X' : 'O';
     }
@@ -46,7 +51,6 @@ class TicTacToe {
   setColor(color) {
     this.color = color;
     this.TicTacToeContainerHtml.style.background = this.color;
-    console.log(this.color)
   }
 
   gameOver() {
@@ -70,6 +74,8 @@ class TicTacToe {
     if(this.positions[2].innerHTML === 'O' && this.positions[4].innerHTML === 'O' && this.positions[6].innerHTML === 'O') alert('Победа ноликов');
   }
 }
-const instance = new TicTacToe('Tic_tac_toe_container');
+const testContainer = document.getElementById('test_container');
+
+const instance = new TicTacToe(testContainer,'blue');
 
 // module.export = TicTacToe;

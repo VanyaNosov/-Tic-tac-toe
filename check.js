@@ -12,9 +12,6 @@ const f = (name, index = 0) => {
   if (index !== 5) {
     return f(`${name}_${name}`, index + 1);
   }
-
-  console.log(name);
-
 }
 
 f('Ivan');
