@@ -16,6 +16,7 @@ class TicTacToe {
     this.discharge.addEventListener('click', () => {
       for (let i = 0; i < this.positions.length; i++){
         this.positions[i].innerHTML = '';
+        this.positions[i].className = 'position no_active_position';
       }
     })
     // for (let i = 0; i < this.colorPositionbutton.length; i++) {
@@ -41,11 +42,11 @@ class TicTacToe {
   }
 
   click(e) {
-    console.log(e)
-    if(e.target.className === 'position no_active_position' && this.position === true) {
+    if(e.target.className === 'position no_active_position') {
       e.target.innerHTML = this.current;
       this.current = this.current === 'X' ? 'O' : this.current === 'O' ? 'X' : 'O';
     }
+    e.target.className = 'position active_position';
   }
 
   setColor(color) {
