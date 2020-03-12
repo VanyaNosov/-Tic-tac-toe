@@ -1,4 +1,4 @@
-class TicTacToe {
+export class TicTacToe {
   constructor (block,color) {
     this.TicTacToeGlobalContainer = document.getElementById('Tic_tac_toe_global_container'); 
     block.appendChild(this.TicTacToeGlobalContainer)
@@ -10,8 +10,8 @@ class TicTacToe {
     this.color = '';
     this.current = 'X';
     this.TicTacToeContainerHtml.addEventListener('click', (e) => {
-      instance.click(e);
-      instance.gameOver()
+      this.click(e);
+      this.gameOver()
     })
     this.discharge.addEventListener('click', () => {
       for (let i = 0; i < this.positions.length; i++){
@@ -26,7 +26,7 @@ class TicTacToe {
     //   })
     // }
     this.colorBlock.addEventListener('click', () =>  {
-      instance.setColor(color)
+      this.setColor(color)
     })
 
     for (let i = 0; i < 9; i++) {
@@ -75,8 +75,6 @@ class TicTacToe {
     if(this.positions[2].innerHTML === 'O' && this.positions[4].innerHTML === 'O' && this.positions[6].innerHTML === 'O') alert('Победа ноликов');
   }
 }
-const testContainer = document.getElementById('test_container');
 
-const instance = new TicTacToe(testContainer,'blue');
 
 // module.export = TicTacToe;
