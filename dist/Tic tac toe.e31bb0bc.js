@@ -132,7 +132,7 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
 var TicTacToe = /*#__PURE__*/function () {
-  function TicTacToe(block, color) {
+  function TicTacToe(block, backgroundColor) {
     var _this = this;
 
     _classCallCheck(this, TicTacToe);
@@ -149,22 +149,17 @@ var TicTacToe = /*#__PURE__*/function () {
     this.TicTacToeContainerHtml.addEventListener('click', function (e) {
       _this.click(e);
 
+      if (_this.gameOver() === 'game over') {
+        _this.deactivatingPositions();
+      }
+
       _this.gameOver();
     });
     this.discharge.addEventListener('click', function () {
-      for (var i = 0; i < _this.positions.length; i++) {
-        _this.positions[i].innerHTML = '';
-        _this.positions[i].className = 'position no_active_position';
-      }
-    }); // for (let i = 0; i < this.colorPositionbutton.length; i++) {
-    //   this.colorPositionbutton[i].addEventListener('click', (e) => {
-    //     // instance.setColor(event.target.innerHTML)
-    //     instance.setColor(color)
-    //   })
-    // }
-
+      _this.dischargeMethod();
+    });
     this.colorBlock.addEventListener('click', function () {
-      _this.setColor(color);
+      _this.setColor(backgroundColor);
     });
 
     for (var i = 0; i < 9; i++) {
@@ -174,6 +169,21 @@ var TicTacToe = /*#__PURE__*/function () {
   }
 
   _createClass(TicTacToe, [{
+    key: "deactivatingPositions",
+    value: function deactivatingPositions() {
+      for (var i = 0; i < this.positions.length; i++) {
+        this.positions[i].className = 'position active_position';
+      }
+    }
+  }, {
+    key: "dischargeMethod",
+    value: function dischargeMethod() {
+      for (var i = 0; i < this.positions.length; i++) {
+        this.positions[i].innerHTML = '';
+        this.positions[i].className = 'position no_active_position';
+      }
+    }
+  }, {
     key: "createBlock",
     value: function createBlock(className) {
       var el = document.createElement('div');
@@ -192,37 +202,36 @@ var TicTacToe = /*#__PURE__*/function () {
     }
   }, {
     key: "setColor",
-    value: function setColor(color) {
-      this.color = color;
-      this.TicTacToeContainerHtml.style.background = this.color;
+    value: function setColor(backgroundColor) {
+      this.background = backgroundColor;
+      this.TicTacToeContainerHtml.style.background = this.background;
     }
   }, {
     key: "gameOver",
     value: function gameOver() {
       //Крестик
-      if (this.positions[0].innerHTML === 'X' && this.positions[1].innerHTML === 'X' && this.positions[2].innerHTML === 'X') alert('Победа крестико');
-      if (this.positions[3].innerHTML === 'X' && this.positions[4].innerHTML === 'X' && this.positions[5].innerHTML === 'X') alert('Победа крестико');
-      if (this.positions[6].innerHTML === 'X' && this.positions[7].innerHTML === 'X' && this.positions[8].innerHTML === 'X') alert('Победа крестико');
-      if (this.positions[0].innerHTML === 'X' && this.positions[3].innerHTML === 'X' && this.positions[6].innerHTML === 'X') alert('Победа крестико');
-      if (this.positions[1].innerHTML === 'X' && this.positions[4].innerHTML === 'X' && this.positions[7].innerHTML === 'X') alert('Победа крестико');
-      if (this.positions[2].innerHTML === 'X' && this.positions[5].innerHTML === 'X' && this.positions[8].innerHTML === 'X') alert('Победа крестико');
-      if (this.positions[0].innerHTML === 'X' && this.positions[4].innerHTML === 'X' && this.positions[8].innerHTML === 'X') alert('Победа крестико');
-      if (this.positions[2].innerHTML === 'X' && this.positions[4].innerHTML === 'X' && this.positions[6].innerHTML === 'X') alert('Победа крестико'); //Нолики
+      if (this.positions[0].innerHTML === 'X' && this.positions[1].innerHTML === 'X' && this.positions[2].innerHTML === 'X') return 'game over';
+      if (this.positions[3].innerHTML === 'X' && this.positions[4].innerHTML === 'X' && this.positions[5].innerHTML === 'X') return 'game over';
+      if (this.positions[6].innerHTML === 'X' && this.positions[7].innerHTML === 'X' && this.positions[8].innerHTML === 'X') return 'game over';
+      if (this.positions[0].innerHTML === 'X' && this.positions[3].innerHTML === 'X' && this.positions[6].innerHTML === 'X') return 'game over';
+      if (this.positions[1].innerHTML === 'X' && this.positions[4].innerHTML === 'X' && this.positions[7].innerHTML === 'X') return 'game over';
+      if (this.positions[2].innerHTML === 'X' && this.positions[5].innerHTML === 'X' && this.positions[8].innerHTML === 'X') return 'game over';
+      if (this.positions[0].innerHTML === 'X' && this.positions[4].innerHTML === 'X' && this.positions[8].innerHTML === 'X') return 'game over';
+      if (this.positions[2].innerHTML === 'X' && this.positions[4].innerHTML === 'X' && this.positions[6].innerHTML === 'X') return 'game over'; //Нолики
 
-      if (this.positions[0].innerHTML === 'O' && this.positions[1].innerHTML === 'O' && this.positions[2].innerHTML === 'O') alert('Победа ноликов');
-      if (this.positions[3].innerHTML === 'O' && this.positions[4].innerHTML === 'O' && this.positions[5].innerHTML === 'O') alert('Победа ноликов');
-      if (this.positions[6].innerHTML === 'O' && this.positions[7].innerHTML === 'O' && this.positions[8].innerHTML === 'O') alert('Победа ноликов');
-      if (this.positions[0].innerHTML === 'O' && this.positions[3].innerHTML === 'O' && this.positions[6].innerHTML === 'O') alert('Победа ноликов');
-      if (this.positions[1].innerHTML === 'O' && this.positions[4].innerHTML === 'O' && this.positions[7].innerHTML === 'O') alert('Победа ноликов');
-      if (this.positions[2].innerHTML === 'O' && this.positions[5].innerHTML === 'O' && this.positions[8].innerHTML === 'O') alert('Победа ноликов');
-      if (this.positions[0].innerHTML === 'O' && this.positions[4].innerHTML === 'O' && this.positions[8].innerHTML === 'O') alert('Победа ноликов');
-      if (this.positions[2].innerHTML === 'O' && this.positions[4].innerHTML === 'O' && this.positions[6].innerHTML === 'O') alert('Победа ноликов');
+      if (this.positions[0].innerHTML === 'O' && this.positions[1].innerHTML === 'O' && this.positions[2].innerHTML === 'O') return 'game over';
+      if (this.positions[3].innerHTML === 'O' && this.positions[4].innerHTML === 'O' && this.positions[5].innerHTML === 'O') return 'game over';
+      if (this.positions[6].innerHTML === 'O' && this.positions[7].innerHTML === 'O' && this.positions[8].innerHTML === 'O') return 'game over';
+      if (this.positions[0].innerHTML === 'O' && this.positions[3].innerHTML === 'O' && this.positions[6].innerHTML === 'O') return 'game over';
+      if (this.positions[1].innerHTML === 'O' && this.positions[4].innerHTML === 'O' && this.positions[7].innerHTML === 'O') return 'game over';
+      if (this.positions[2].innerHTML === 'O' && this.positions[5].innerHTML === 'O' && this.positions[8].innerHTML === 'O') return 'game over';
+      if (this.positions[0].innerHTML === 'O' && this.positions[4].innerHTML === 'O' && this.positions[8].innerHTML === 'O') return 'game over';
+      if (this.positions[2].innerHTML === 'O' && this.positions[4].innerHTML === 'O' && this.positions[6].innerHTML === 'O') return 'game over';
     }
   }]);
 
   return TicTacToe;
-}(); // module.export = TicTacToe;
-
+}();
 
 exports.TicTacToe = TicTacToe;
 },{}],"C:/Users/User/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
@@ -253,7 +262,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61460" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54673" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
