@@ -223,9 +223,13 @@ var TicTacToe = /*#__PURE__*/function () {
   }, {
     key: "deactivatingPositions",
     value: function deactivatingPositions() {
-      for (var i = 0; i < this.positionsArray.length; i++) {
-        this.positionsArray[i].className = 'positions';
-      }
+      var _this3 = this;
+
+      this.dischargeCreate.addEventListener('click', function () {
+        for (var i = 0; i < _this3.positionsArray.length; i++) {
+          _this3.positionsArray[i].className = 'positions';
+        }
+      });
     }
   }, {
     key: "dischargeMethod",
@@ -238,7 +242,7 @@ var TicTacToe = /*#__PURE__*/function () {
   }, {
     key: "createBlock",
     value: function createBlock(a, classNameMainUnit, className) {
-      var _this3 = this;
+      var _this4 = this;
 
       this.mainBlock = document.createElement('div');
       this.dischargeCreate = document.createElement('button');
@@ -261,11 +265,11 @@ var TicTacToe = /*#__PURE__*/function () {
           var value = _style.default[block][key];
 
           if (block === 'mainBlock') {
-            _this3[block].style[key] = value;
+            _this4[block].style[key] = value;
           }
 
           if (block === 'dischargeCreate') {
-            _this3[block].style[key] = value;
+            _this4[block].style[key] = value;
           }
 
           if (block === 'positionsArray') {
@@ -368,7 +372,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51020" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60212" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

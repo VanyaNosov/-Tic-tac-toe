@@ -40,9 +40,11 @@ export class TicTacToe {
   }
 
   deactivatingPositions() {
-    for (let i = 0; i < this.positionsArray.length; i++) {
-      this.positionsArray[i].className = 'positions';
-    }
+    this.dischargeCreate.addEventListener('click', () => {
+      for (let i = 0; i < this.positionsArray.length; i++) {
+        this.positionsArray[i].className = 'positions';
+      }
+    })
   }
 
   dischargeMethod() {
@@ -94,8 +96,7 @@ export class TicTacToe {
       e.target.innerHTML = this.current;
       this.current = this.current === 'X' ? 'O' : this.current === 'O' ? 'X' : 'O';
     }
-    e.target.className = 'no_active'
-
+    e.target.className = 'no_active';
   }
 
   setColor(backgroundColor) {
