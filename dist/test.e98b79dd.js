@@ -117,13 +117,52 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"index.js":[function(require,module,exports) {
+})({"style.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var _default = {
+  mainBlock: {
+    width: '200px',
+    height: '200px',
+    display: 'inline-block',
+    border: '5px solid black'
+  },
+  dischargeCreate: _defineProperty({
+    width: '75px',
+    height: '20px',
+    verticalAlign: 'top',
+    marginLeft: '50px'
+  }, "marginLeft", '50px'),
+  positionsArray: {
+    display: 'inline-block',
+    width: '66.6px',
+    height: '66.6px',
+    verticalAlign: 'top',
+    paddingTop: '25.25',
+    textAlign: 'center',
+    boxSizing: 'border-box',
+    border: '1px solid black'
+  }
+};
+exports.default = _default;
+},{}],"index.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.TicTacToe = void 0;
+
+var _style = _interopRequireDefault(require("./style"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -132,75 +171,124 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
 var TicTacToe = /*#__PURE__*/function () {
-  function TicTacToe(block, backgroundColor) {
-    var _this = this;
-
+  function TicTacToe(props) {
     _classCallCheck(this, TicTacToe);
 
-    this.TicTacToeGlobalContainer = document.getElementById('Tic_tac_toe_global_container');
-    block.appendChild(this.TicTacToeGlobalContainer);
-    this.TicTacToeContainerHtml = document.getElementById('Tic_tac_toe_container');
-    this.positions = document.getElementsByClassName('position');
-    this.colorPositionbutton = document.getElementsByClassName('color_position');
-    this.discharge = document.getElementById('discharge');
-    this.colorBlock = document.getElementById('color_block');
+    this.mainUnit = props.containerTicTacToeClassName;
+    this.positionsProps = props.positionsPropsClassName;
+    this.dischargeCreate;
+    this.container = props.containerId;
+    this.backgroundColor = props.backgroundColor;
+    this.borderColor = props.borderColor;
+    this.iconColor = props.iconColor;
     this.color = '';
     this.current = 'X';
-    this.TicTacToeContainerHtml.addEventListener('click', function (e) {
-      _this.click(e);
-
-      if (_this.gameOver() === 'game over') {
-        _this.deactivatingPositions();
-      }
-
-      _this.gameOver();
-    });
-    this.discharge.addEventListener('click', function () {
-      _this.dischargeMethod();
-    });
-    this.colorBlock.addEventListener('click', function () {
-      _this.setColor(backgroundColor);
-    });
-
-    for (var i = 0; i < 9; i++) {
-      var el = this.createBlock('position no_active_position');
-      this.TicTacToeContainerHtml.appendChild(el);
-    }
+    this.x = 'X';
+    this.o = 'O';
+    this.positionsArray = [];
+    this.styleArrayPositions;
+    console.log(this.positionsArray);
+    this.mainBlock;
+    this.positionsCreate;
+    this.container = document.getElementById('test_container');
+    this.createBlock(this.container, this.mainUnit, this.positionsProps);
+    this.clickMainBlock();
+    this.clickDischargeCreate();
   }
 
   _createClass(TicTacToe, [{
+    key: "clickDischargeCreate",
+    value: function clickDischargeCreate() {
+      var _this = this;
+
+      this.dischargeCreate.addEventListener('click', function () {
+        _this.dischargeMethod();
+      });
+    }
+  }, {
+    key: "clickMainBlock",
+    value: function clickMainBlock() {
+      var _this2 = this;
+
+      this.mainBlock.addEventListener('click', function (e) {
+        _this2.click(e);
+
+        if (_this2.gameOver() === 'game over') {
+          _this2.deactivatingPositions();
+        }
+
+        _this2.gameOver();
+      });
+    }
+  }, {
     key: "deactivatingPositions",
     value: function deactivatingPositions() {
-      for (var i = 0; i < this.positions.length; i++) {
-        this.positions[i].className = 'position active_position';
+      for (var i = 0; i < this.positionsArray.length; i++) {
+        this.positionsArray[i].className = 'positions';
       }
     }
   }, {
     key: "dischargeMethod",
     value: function dischargeMethod() {
-      for (var i = 0; i < this.positions.length; i++) {
-        this.positions[i].innerHTML = '';
-        this.positions[i].className = 'position no_active_position';
+      for (var i = 0; i < this.positionsArray.length; i++) {
+        this.positionsArray[i].innerHTML = '';
+        this.positionsArray[i].className = this.positionsProps;
       }
     }
   }, {
     key: "createBlock",
-    value: function createBlock(className) {
-      var TicTacToeGlobalContainer = document.createElement('div');
-      el.className = TicTacToeGlobalContainer;
-      var el = document.createElement('div');
-      el.className = className;
-      return el;
+    value: function createBlock(a, classNameMainUnit, className) {
+      var _this3 = this;
+
+      this.mainBlock = document.createElement('div');
+      this.dischargeCreate = document.createElement('button');
+      this.dischargeCreate.style.backgroundColor = this.iconColor;
+      this.mainBlock.style.backgroundColor = this.backgroundColor;
+      this.mainBlock.className = classNameMainUnit;
+      var array = [];
+
+      for (var i = 0; i < 9; i++) {
+        this.positionsCreate = document.createElement('div');
+        this.positionsCreate.className = className;
+        this.positionsCreate.style.background = this.iconColor;
+        this.positionsArray.push(this.positionsCreate);
+        array.push(this.positionsCreate);
+        this.mainBlock.appendChild(this.positionsCreate);
+      }
+
+      Object.keys(_style.default).forEach(function (block) {
+        Object.keys(_style.default[block]).forEach(function (key) {
+          var value = _style.default[block][key];
+
+          if (block === 'mainBlock') {
+            _this3[block].style[key] = value;
+          }
+
+          if (block === 'dischargeCreate') {
+            _this3[block].style[key] = value;
+          }
+
+          if (block === 'positionsArray') {
+            for (var _i = 0; _i < array.length; _i++) {
+              console.log(_style.default[key] = value);
+              array[_i].style[key] = value;
+            }
+          }
+        });
+      });
+      a.appendChild(this.mainBlock);
+      a.appendChild(this.dischargeCreate);
+      return this.mainBlock;
     }
   }, {
     key: "click",
     value: function click(e) {
-      if (e.target.className === 'position no_active_position') {
+      if (e.target.className === this.positionsProps) {
         e.target.innerHTML = this.current;
         this.current = this.current === 'X' ? 'O' : this.current === 'O' ? 'X' : 'O';
       }
 
-      e.target.className = 'position active_position';
+      e.target.className = 'no_active';
     }
   }, {
     key: "setColor",
@@ -212,31 +300,47 @@ var TicTacToe = /*#__PURE__*/function () {
     key: "gameOver",
     value: function gameOver() {
       //Крестик
-      if (this.positions[0].innerHTML === 'X' && this.positions[1].innerHTML === 'X' && this.positions[2].innerHTML === 'X') return 'game over';
-      if (this.positions[3].innerHTML === 'X' && this.positions[4].innerHTML === 'X' && this.positions[5].innerHTML === 'X') return 'game over';
-      if (this.positions[6].innerHTML === 'X' && this.positions[7].innerHTML === 'X' && this.positions[8].innerHTML === 'X') return 'game over';
-      if (this.positions[0].innerHTML === 'X' && this.positions[3].innerHTML === 'X' && this.positions[6].innerHTML === 'X') return 'game over';
-      if (this.positions[1].innerHTML === 'X' && this.positions[4].innerHTML === 'X' && this.positions[7].innerHTML === 'X') return 'game over';
-      if (this.positions[2].innerHTML === 'X' && this.positions[5].innerHTML === 'X' && this.positions[8].innerHTML === 'X') return 'game over';
-      if (this.positions[0].innerHTML === 'X' && this.positions[4].innerHTML === 'X' && this.positions[8].innerHTML === 'X') return 'game over';
-      if (this.positions[2].innerHTML === 'X' && this.positions[4].innerHTML === 'X' && this.positions[6].innerHTML === 'X') return 'game over'; //Нолики
+      if (this.positionsArray[0].textContent === this.x && this.positionsArray[1].textContent === this.x && this.positionsArray[2].textContent === this.x) return 'game over';
+      if (this.positionsArray[3].textContent === this.x && this.positionsArray[4].textContent === this.x && this.positionsArray[5].textContent === this.x) return 'game over';
+      if (this.positionsArray[6].textContent === this.x && this.positionsArray[7].textContent === this.x && this.positionsArray[8].textContent === this.x) return 'game over';
+      if (this.positionsArray[0].textContent === this.x && this.positionsArray[3].textContent === this.x && this.positionsArray[6].textContent === this.x) return 'game over';
+      if (this.positionsArray[1].textContent === this.x && this.positionsArray[4].textContent === this.x && this.positionsArray[7].textContent === this.x) return 'game over';
+      if (this.positionsArray[2].textContent === this.x && this.positionsArray[5].textContent === this.x && this.positionsArray[8].textContent === this.x) return 'game over';
+      if (this.positionsArray[0].textContent === this.x && this.positionsArray[4].textContent === this.x && this.positionsArray[8].textContent === this.x) return 'game over';
+      if (this.positionsArray[2].textContent === this.x && this.positionsArray[4].textContent === this.x && this.positionsArray[6].textContent === this.x) return 'game over'; //Нолики
 
-      if (this.positions[0].innerHTML === 'O' && this.positions[1].innerHTML === 'O' && this.positions[2].innerHTML === 'O') return 'game over';
-      if (this.positions[3].innerHTML === 'O' && this.positions[4].innerHTML === 'O' && this.positions[5].innerHTML === 'O') return 'game over';
-      if (this.positions[6].innerHTML === 'O' && this.positions[7].innerHTML === 'O' && this.positions[8].innerHTML === 'O') return 'game over';
-      if (this.positions[0].innerHTML === 'O' && this.positions[3].innerHTML === 'O' && this.positions[6].innerHTML === 'O') return 'game over';
-      if (this.positions[1].innerHTML === 'O' && this.positions[4].innerHTML === 'O' && this.positions[7].innerHTML === 'O') return 'game over';
-      if (this.positions[2].innerHTML === 'O' && this.positions[5].innerHTML === 'O' && this.positions[8].innerHTML === 'O') return 'game over';
-      if (this.positions[0].innerHTML === 'O' && this.positions[4].innerHTML === 'O' && this.positions[8].innerHTML === 'O') return 'game over';
-      if (this.positions[2].innerHTML === 'O' && this.positions[4].innerHTML === 'O' && this.positions[6].innerHTML === 'O') return 'game over';
+      if (this.positionsArray[0].textContent === this.o && this.positionsArray[1].textContent === this.o && this.positionsArray[2].textContent === this.o) return 'game over';
+      if (this.positionsArray[3].textContent === this.o && this.positionsArray[4].textContent === this.o && this.positionsArray[5].textContent === this.o) return 'game over';
+      if (this.positionsArray[6].textContent === this.o && this.positionsArray[7].textContent === this.o && this.positionsArray[8].textContent === this.o) return 'game over';
+      if (this.positionsArray[0].textContent === this.o && this.positionsArray[3].textContent === this.o && this.positionsArray[6].textContent === this.o) return 'game over';
+      if (this.positionsArray[1].textContent === this.o && this.positionsArray[4].textContent === this.o && this.positionsArray[7].textContent === this.o) return 'game over';
+      if (this.positionsArray[2].textContent === this.o && this.positionsArray[5].textContent === this.o && this.positionsArray[8].textContent === this.o) return 'game over';
+      if (this.positionsArray[0].textContent === this.o && this.positionsArray[4].textContent === this.o && this.positionsArray[8].textContent === this.o) return 'game over';
+      if (this.positionsArray[2].textContent === this.o && this.positionsArray[4].textContent === this.o && this.positionsArray[6].textContent === this.o) return 'game over';
     }
   }]);
 
   return TicTacToe;
-}();
+}(); // import { obg } from './style.js';
+// console.log(obg)
+
 
 exports.TicTacToe = TicTacToe;
-},{}],"C:/Users/User/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"./style":"style.js"}],"test.js":[function(require,module,exports) {
+"use strict";
+
+var _index = require("./index.js");
+
+var props = {
+  containerId: 'test_container',
+  containerTicTacToeClassName: 'TicTacToelContainer',
+  positionsPropsClassName: 'positions',
+  backgroundColor: 'black',
+  borderColor: 'red',
+  iconColor: 'blue'
+};
+var instance = new _index.TicTacToe(props);
+},{"./index.js":"index.js"}],"C:/Users/User/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -264,7 +368,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53386" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51020" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
@@ -440,5 +544,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["C:/Users/User/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","index.js"], null)
-//# sourceMappingURL=/Tic%20tac%20toe.e31bb0bc.js.map
+},{}]},{},["C:/Users/User/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","test.js"], null)
+//# sourceMappingURL=/test.e98b79dd.js.map

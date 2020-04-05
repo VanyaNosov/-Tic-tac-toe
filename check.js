@@ -1,6 +1,6 @@
-import {TicTacToe} from './index.js';
-const testContainer = document.getElementById('test_container');
-const instance = new TicTacToe(testContainer,'blue');
+// import { TicTacToe } from './index.js';
+// // const testContainer = document.getElementById('test_container');
+// const instance = new TicTacToe(testContainer, 'blue');
 
 
 // new TicTacToe('Tic_tac_toe_container');
