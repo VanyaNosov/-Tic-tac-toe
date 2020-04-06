@@ -181,13 +181,14 @@ var TicTacToe = /*#__PURE__*/function () {
     this.backgroundColor = props.backgroundColor;
     this.borderColor = props.borderColor;
     this.iconColor = props.iconColor;
+    this.classNamePosition = props.positionsPropsClassName;
+    this.props = props;
     this.color = '';
     this.current = 'X';
     this.x = 'X';
     this.o = 'O';
     this.positionsArray = [];
     this.styleArrayPositions;
-    console.log(this.positionsArray);
     this.mainBlock;
     this.positionsCreate;
     this.container = document.getElementById('test_container');
@@ -215,6 +216,16 @@ var TicTacToe = /*#__PURE__*/function () {
 
         if (_this2.gameOver() === 'game over') {
           _this2.deactivatingPositions();
+
+          Object.keys(_this2.props).forEach(function (key) {
+            if (key === 'gameOverFunk') {
+              _this2.props.gameOverFunk();
+            }
+          });
+
+          for (var i = 0; i < _this2.positionsArray.length; i++) {
+            _this2.positionsArray[i].style.pointerEvents = 'none';
+          }
         }
 
         _this2.gameOver();
@@ -227,7 +238,8 @@ var TicTacToe = /*#__PURE__*/function () {
 
       this.dischargeCreate.addEventListener('click', function () {
         for (var i = 0; i < _this3.positionsArray.length; i++) {
-          _this3.positionsArray[i].className = 'positions';
+          _this3.positionsArray[i].className = _this3.classNamePosition;
+          _this3.positionsArray[i].style.pointerEvents = 'auto';
         }
       });
     }
@@ -274,7 +286,6 @@ var TicTacToe = /*#__PURE__*/function () {
 
           if (block === 'positionsArray') {
             for (var _i = 0; _i < array.length; _i++) {
-              console.log(_style.default[key] = value);
               array[_i].style[key] = value;
             }
           }
@@ -287,6 +298,14 @@ var TicTacToe = /*#__PURE__*/function () {
   }, {
     key: "click",
     value: function click(e) {
+      var _this5 = this;
+
+      Object.keys(this.props).forEach(function (key) {
+        if (key === 'funkEveryClick') {
+          _this5.props.funkEveryClick();
+        }
+      });
+
       if (e.target.className === this.positionsProps) {
         e.target.innerHTML = this.current;
         this.current = this.current === 'X' ? 'O' : this.current === 'O' ? 'X' : 'O';
@@ -325,9 +344,7 @@ var TicTacToe = /*#__PURE__*/function () {
   }]);
 
   return TicTacToe;
-}(); // import { obg } from './style.js';
-// console.log(obg)
-
+}();
 
 exports.TicTacToe = TicTacToe;
 },{"./style":"style.js"}],"test.js":[function(require,module,exports) {
@@ -341,7 +358,13 @@ var props = {
   positionsPropsClassName: 'positions',
   backgroundColor: 'black',
   borderColor: 'red',
-  iconColor: 'blue'
+  iconColor: 'blue',
+  funkEveryClick: function funkEveryClick() {
+    console.log('1');
+  },
+  gameOverFunk: function gameOverFunk() {
+    console.log('2');
+  }
 };
 var instance = new _index.TicTacToe(props);
 },{"./index.js":"index.js"}],"C:/Users/User/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
@@ -372,7 +395,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60212" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52923" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

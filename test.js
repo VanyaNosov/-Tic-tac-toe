@@ -5,6 +5,8 @@ const props = {
   positionsPropsClassName: 'positions',
   backgroundColor: 'black',
   borderColor: 'red',
-  iconColor: 'blue'
+  iconColor: 'blue',
+  funkEveryClick: () => { console.log('1') },
+  gameOverFunk: () => { console.log('2') },
 }
 const instance = new TicTacToe(props);

@@ -8,13 +8,14 @@ export class TicTacToe {
     this.backgroundColor = props.backgroundColor;
     this.borderColor = props.borderColor;
     this.iconColor = props.iconColor;
+    this.classNamePosition = props.positionsPropsClassName;
+    this.props = props;
     this.color = '';
     this.current = 'X';
     this.x = 'X';
     this.o = 'O';
     this.positionsArray = [];
     this.styleArrayPositions;
-    console.log(this.positionsArray)
     this.mainBlock;
     this.positionsCreate;
     this.container = document.getElementById('test_container');
@@ -22,38 +23,42 @@ export class TicTacToe {
     this.clickMainBlock();
     this.clickDischargeCreate();
   }
-
   clickDischargeCreate() {
     this.dischargeCreate.addEventListener('click', () => {
       this.dischargeMethod()
     })
   }
-
   clickMainBlock() {
     this.mainBlock.addEventListener('click', (e) => {
       this.click(e);
       if (this.gameOver() === 'game over') {
         this.deactivatingPositions()
+        Object.keys(this.props).forEach((key) => {
+          if (key === 'gameOverFunk') {
+            this.props.gameOverFunk()
+          }
+        })
+        for (let i = 0; i < this.positionsArray.length; i++) {
+          this.positionsArray[i].style.pointerEvents = 'none';
+        }
       }
       this.gameOver()
     })
   }
-
   deactivatingPositions() {
     this.dischargeCreate.addEventListener('click', () => {
       for (let i = 0; i < this.positionsArray.length; i++) {
-        this.positionsArray[i].className = 'positions';
+        this.positionsArray[i].className = this.classNamePosition;
+        this.positionsArray[i].style.pointerEvents = 'auto';
       }
     })
   }
-
   dischargeMethod() {
     for (let i = 0; i < this.positionsArray.length; i++) {
       this.positionsArray[i].innerHTML = '';
       this.positionsArray[i].className = this.positionsProps;
     }
   }
-
   createBlock(a, classNameMainUnit, className) {
     this.mainBlock = document.createElement('div');
     this.dischargeCreate = document.createElement('button');
@@ -80,7 +85,6 @@ export class TicTacToe {
         }
         if (block === 'positionsArray') {
           for (let i = 0; i < array.length; i++) {
-            console.log(style[key] = value)
             array[i].style[key] = value;
           }
         }
@@ -90,8 +94,12 @@ export class TicTacToe {
     a.appendChild(this.dischargeCreate);
     return this.mainBlock;
   }
-
   click(e) {
+    Object.keys(this.props).forEach((key) => {
+      if (key === 'funkEveryClick') {
+        this.props.funkEveryClick()
+      }
+    })
     if (e.target.className === this.positionsProps) {
       e.target.innerHTML = this.current;
       this.current = this.current === 'X' ? 'O' : this.current === 'O' ? 'X' : 'O';
@@ -125,6 +133,3 @@ export class TicTacToe {
     if (this.positionsArray[2].textContent === this.o && this.positionsArray[4].textContent === this.o && this.positionsArray[6].textContent === this.o) return 'game over';
   }
 }
-
-// import { obg } from './style.js';
-// console.log(obg)
